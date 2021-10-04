@@ -486,14 +486,15 @@ void poly_uniform_gamma1(poly *a,
 * Arguments:   - poly *c: pointer to output polynomial
 *              - const uint8_t mu[]: byte array containing seed of length SEEDBYTES
 **************************************************/
-void poly_challenge(poly *c, const uint8_t seed[SEEDBYTES]) {
+void poly_challenge(poly *c, const uint8_t mu[64], const uint8_t alpha[64]) {
   unsigned int i, b, pos;
   uint64_t signs;
   uint8_t buf[SHAKE256_RATE];
   keccak_state state;
 
   shake256_init(&state);
-  shake256_absorb(&state, seed, SEEDBYTES);
+  shake256_absorb(&state, mu, 64);
+  shake256_absorb(&state, alpha, 64);
   shake256_finalize(&state);
   shake256_squeezeblocks(buf, 1, &state);
 

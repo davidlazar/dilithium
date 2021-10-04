@@ -2,6 +2,7 @@
 #define PARAMS_H
 
 #include "config.h"
+#include "sumhash.h"
 
 #define SEEDBYTES 32
 #define CRHBYTES 64
@@ -65,10 +66,10 @@
 #endif
 
 #define CRYPTO_PUBLICKEYBYTES (SEEDBYTES + K*POLYT1_PACKEDBYTES)
-#define CRYPTO_SECRETKEYBYTES (3*SEEDBYTES \
+#define CRYPTO_SECRETKEYBYTES (2*SEEDBYTES + 64 \
                                + L*POLYETA_PACKEDBYTES \
                                + K*POLYETA_PACKEDBYTES \
                                + K*POLYT0_PACKEDBYTES)
-#define CRYPTO_BYTES (SEEDBYTES + L*POLYZ_PACKEDBYTES + POLYVECH_PACKEDBYTES)
+#define CRYPTO_BYTES (64 + L*POLYZ_PACKEDBYTES + POLYVECH_PACKEDBYTES + BLOCK_SIZE)
 
 #endif
