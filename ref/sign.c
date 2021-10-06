@@ -146,7 +146,7 @@ int crypto_sign_signature(uint8_t *sig,
   shake256_absorb(&kst, key, SEEDBYTES);
   uint8_t ones[1] = {0xff};
   shake256_absorb(&kst, ones, 1);
-  shake256_absorb(&kst, mu, 64);
+  shake256_absorb(&kst, m, mlen);
   shake256_finalize(&kst);
   shake256_squeeze(rhoprime, CRHBYTES, &kst);
 #endif
