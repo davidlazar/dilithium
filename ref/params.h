@@ -70,6 +70,6 @@
                                + L*POLYETA_PACKEDBYTES \
                                + K*POLYETA_PACKEDBYTES \
                                + K*POLYT0_PACKEDBYTES)
-#define CRYPTO_BYTES (64 + L*POLYZ_PACKEDBYTES + POLYVECH_PACKEDBYTES + BLOCK_SIZE)
+#define CRYPTO_BYTES (64 + L*POLYZ_PACKEDBYTES + POLYVECH_PACKEDBYTES + SUMHASH512_BLOCK_SIZE)
 
 #endif

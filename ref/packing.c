@@ -158,7 +158,7 @@ void pack_sig(uint8_t sig[CRYPTO_BYTES],
               const uint8_t alpha[64],
               const polyvecl *z,
               const polyveck *h,
-              const uint8_t salt[BLOCK_SIZE])
+              const uint8_t salt[SUMHASH512_BLOCK_SIZE])
 {
   unsigned int i, j, k;
 
@@ -184,7 +184,7 @@ void pack_sig(uint8_t sig[CRYPTO_BYTES],
   }
   sig += POLYVECH_PACKEDBYTES;
 
-  for(i=0; i < BLOCK_SIZE; ++i)
+  for(i=0; i < SUMHASH512_BLOCK_SIZE; ++i)
     sig[i] = salt[i];
 }
 
@@ -204,7 +204,7 @@ void pack_sig(uint8_t sig[CRYPTO_BYTES],
 int unpack_sig(uint8_t alpha[64],
                polyvecl *z,
                polyveck *h,
-               uint8_t salt[BLOCK_SIZE],
+               uint8_t salt[SUMHASH512_BLOCK_SIZE],
                const uint8_t sig[CRYPTO_BYTES])
 {
   unsigned int i, j, k;
@@ -242,7 +242,7 @@ int unpack_sig(uint8_t alpha[64],
 
   sig += POLYVECH_PACKEDBYTES;
 
-  for(i = 0; i < BLOCK_SIZE; ++i)
+  for(i = 0; i < SUMHASH512_BLOCK_SIZE; ++i)
     salt[i] = sig[i];
 
   return 0;

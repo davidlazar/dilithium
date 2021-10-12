@@ -241,8 +241,8 @@ int main(void) {
     }
 
     polyveck_make_hint(&h, &w0, &w1);
-    uint8_t salt[BLOCK_SIZE];
-    randombytes(salt, BLOCK_SIZE);
+    uint8_t salt[SUMHASH512_BLOCK_SIZE];
+    randombytes(salt, SUMHASH512_BLOCK_SIZE);
     pack_sig(buf, seed, &y, &h, salt);
     unpack_sig(seed, &y, &w, salt, buf);
     if(memcmp(&h,&w,sizeof(h)))

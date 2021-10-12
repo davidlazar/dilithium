@@ -78,7 +78,7 @@ int crypto_sign_keypair_params(uint8_t *pk, uint8_t *sk, const uint8_t *rho, con
   pack_pk(pk, rho, &t1);
 
   /* Compute SS(rho, t1) and write secret key */
-  sumhash512(tr, pk, CRYPTO_PUBLICKEYBYTES, NULL);
+  sumhash512(tr, pk, CRYPTO_PUBLICKEYBYTES);
   pack_sk(sk, rho, tr, key, &t0, &s1, &s2);
 
   return 0;
@@ -106,7 +106,7 @@ int crypto_sign_signature(uint8_t *sig,
   unsigned int n;
   uint8_t seedbuf[2*SEEDBYTES + 64 + 2*CRHBYTES];
   uint8_t *rho, *tr, *key, *mu, *rhoprime;
-  uint8_t salt[BLOCK_SIZE];
+  uint8_t salt[SUMHASH512_BLOCK_SIZE];
   uint16_t nonce = 0;
   polyvecl mat[K], s1, y, z;
   polyveck t0, s2, w1, w0, h;
@@ -122,7 +122,7 @@ int crypto_sign_signature(uint8_t *sig,
   unpack_sk(rho, tr, key, &t0, &s1, &s2, sk);
 
 #ifdef DILITHIUM_RANDOMIZED_SIGNING
-  randombytes(salt, BLOCK_SIZE);
+  randombytes(salt, SUMHASH512_BLOCK_SIZE);
 #else
   shake256_init(&kst);
   shake256_absorb(&kst, key, SEEDBYTES);
@@ -130,14 +130,14 @@ int crypto_sign_signature(uint8_t *sig,
   shake256_absorb(&kst, zero, 1);
   shake256_absorb(&kst, mu, 64);
   shake256_finalize(&kst);
-  shake256_squeeze(salt, BLOCK_SIZE, &kst);
+  shake256_squeeze(salt, SUMHASH512_BLOCK_SIZE, &kst);
 #endif
 
   /* Compute SSS(tr, msg) using the salt */
-  sumhash_init(&st, &AlgorandMatrix, salt);
-  sumhash_update(&st, tr, 64);
-  sumhash_update(&st, m, mlen);
-  sumhash_final(&st, mu);
+  sumhash512_init_salted(&st, salt);
+  sumhash512_update(&st, tr, 64);
+  sumhash512_update(&st, m, mlen);
+  sumhash512_final(&st, mu);
 
 #ifdef DILITHIUM_RANDOMIZED_SIGNING
   randombytes(rhoprime, CRHBYTES);
@@ -173,10 +173,10 @@ rej:
   polyveck_decompose(&w1, &w0, &w1);
   polyveck_pack_w1(sig, &w1);
 
-  sumhash_init(&st, &AlgorandMatrix, NULL);
-  sumhash_update(&st, mu, CRHBYTES);
-  sumhash_update(&st, sig, K*POLYW1_PACKEDBYTES);
-  sumhash_final(&st, sig); // alpha is now at the start of sig
+  sumhash512_init(&st);
+  sumhash512_update(&st, mu, CRHBYTES);
+  sumhash512_update(&st, sig, K*POLYW1_PACKEDBYTES);
+  sumhash512_final(&st, sig); // alpha is now at the start of sig
   poly_challenge(&cp, mu, sig);
   poly_ntt(&cp);
 
@@ -272,7 +272,7 @@ int crypto_sign_verify(const uint8_t *sig,
   uint8_t tr[64];
   uint8_t alpha[64];
   uint8_t alpha2[64];
-  uint8_t salt[BLOCK_SIZE];
+  uint8_t salt[SUMHASH512_BLOCK_SIZE];
   poly cp;
   polyvecl mat[K], z;
   polyveck t1, w1, h;
@@ -288,12 +288,12 @@ int crypto_sign_verify(const uint8_t *sig,
     return -1;
 
   /* Compute CRH(H(rho, t1), msg) */
-  sumhash512(tr, pk, CRYPTO_PUBLICKEYBYTES, NULL);
+  sumhash512(tr, pk, CRYPTO_PUBLICKEYBYTES);
 
-  sumhash_init(&st, &AlgorandMatrix, salt);
-  sumhash_update(&st, tr, 64);
-  sumhash_update(&st, m, mlen);
-  sumhash_final(&st, mu);
+  sumhash512_init_salted(&st, salt);
+  sumhash512_update(&st, tr, 64);
+  sumhash512_update(&st, m, mlen);
+  sumhash512_final(&st, mu);
 
   /* Matrix-vector multiplication; compute Az - c2^dt1 */
   poly_challenge(&cp, mu, alpha);
@@ -317,10 +317,10 @@ int crypto_sign_verify(const uint8_t *sig,
   polyveck_pack_w1(buf, &w1);
 
   /* Call random oracle and verify challenge */
-  sumhash_init(&st, &AlgorandMatrix, NULL);
-  sumhash_update(&st, mu, CRHBYTES);
-  sumhash_update(&st, buf, K*POLYW1_PACKEDBYTES);
-  sumhash_final(&st, alpha2);
+  sumhash512_init(&st);
+  sumhash512_update(&st, mu, CRHBYTES);
+  sumhash512_update(&st, buf, K*POLYW1_PACKEDBYTES);
+  sumhash512_final(&st, alpha2);
   for(i = 0; i < 64; ++i)
     if(alpha[i] != alpha2[i])
       return -1;
