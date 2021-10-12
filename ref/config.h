@@ -4,6 +4,7 @@
 //#define DILITHIUM_MODE 2
 //#define DILITHIUM_USE_AES
 //#define DILITHIUM_RANDOMIZED_PROOF
+//#define DILITHIUM_RANDOMIZED_SALT
 //#define USE_RDPMC
 //#define DBENCH
 

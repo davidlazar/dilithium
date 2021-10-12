@@ -121,7 +121,7 @@ int crypto_sign_signature(uint8_t *sig,
   rhoprime = mu + CRHBYTES;
   unpack_sk(rho, tr, key, &t0, &s1, &s2, sk);
 
-#ifdef DILITHIUM_RANDOMIZED_PROOF
+#ifdef DILITHIUM_RANDOMIZED_SALT
   randombytes(salt, SUMHASH512_BLOCK_SIZE);
 #else
   shake256_init(&kst);
