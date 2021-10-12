@@ -2,7 +2,7 @@
 #define PARAMS_H
 
 #include "config.h"
-#include "sumhash.h"
+#include "sumhash512.h"
 
 #define SEEDBYTES 32
 #define CRHBYTES 64

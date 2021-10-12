@@ -2,7 +2,7 @@
 #include "packing.h"
 #include "polyvec.h"
 #include "poly.h"
-#include "sumhash.h"
+#include "sumhash512.h"
 
 /*************************************************
 * Name:        pack_pk

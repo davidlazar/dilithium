@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "params.h"
 #include "polyvec.h"
-#include "sumhash.h"
+#include "sumhash512.h"
 
 #define pack_pk DILITHIUM_NAMESPACE(pack_pk)
 void pack_pk(uint8_t pk[CRYPTO_PUBLICKEYBYTES], const uint8_t rho[SEEDBYTES], const polyveck *t1);

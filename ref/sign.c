@@ -7,7 +7,7 @@
 #include "randombytes.h"
 #include "symmetric.h"
 #include "fips202.h"
-#include "sumhash.h"
+#include "sumhash512.h"
 
 /*************************************************
 * Name:        crypto_sign_keypair
@@ -111,7 +111,7 @@ int crypto_sign_signature(uint8_t *sig,
   polyvecl mat[K], s1, y, z;
   polyveck t0, s2, w1, w0, h;
   poly cp;
-  sumhash_state st;
+  sumhash512_state st;
   keccak_state kst;
 
   rho = seedbuf;
@@ -276,7 +276,7 @@ int crypto_sign_verify(const uint8_t *sig,
   poly cp;
   polyvecl mat[K], z;
   polyveck t1, w1, h;
-  sumhash_state st;
+  sumhash512_state st;
 
   if(siglen != CRYPTO_BYTES)
     return -1;
