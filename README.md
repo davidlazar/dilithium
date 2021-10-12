@@ -60,11 +60,11 @@ Our Dilithium implementations are contained in the [SUPERCOP](https://bench.cr.y
 
 ## Randomized signing
 
-By default our code implements Dilithium's deterministic signing mode. To change this to the randomized signing mode, define the `DILITHIUM_RANDOMIZED_SIGNING` preprocessor macro at compilation by either uncommenting the line
+By default our code implements Dilithium's deterministic signing mode. To change this to the randomized signing mode, define the `DILITHIUM_RANDOMIZED_PROOF` preprocessor macro at compilation by either uncommenting the line
 ```sh
-//#define DILITHIUM_RANDOMIZED_SIGNING
+//#define DILITHIUM_RANDOMIZED_PROOF
 ```
-in config.h, or adding `-DDILITHIUM_RANDOMIZED_SIGNING` to the compiler flags in the environment variable `CFLAGS`.
+in config.h, or adding `-DDILITHIUM_RANDOMIZED_PROOF` to the compiler flags in the environment variable `CFLAGS`.
 
 ## Shared libraries
 
