@@ -128,9 +128,9 @@ void unpack_sk(uint8_t rho[SEEDBYTES],
     key[i] = sk[i];
   sk += SEEDBYTES;
 
-  for(i = 0; i < 64; ++i)
+  for(i = 0; i < SUMHASH512_DIGEST_SIZE; ++i)
     tr[i] = sk[i];
-  sk += 64;
+  sk += SUMHASH512_DIGEST_SIZE;
 
   for(i=0; i < L; ++i)
     polyeta_unpack(&s1->vec[i], sk + i*POLYETA_PACKEDBYTES);
