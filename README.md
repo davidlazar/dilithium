@@ -1,8 +1,8 @@
-# Dilithium
+# Paralithium
 
-[![Build Status](https://travis-ci.org/pq-crystals/dilithium.svg?branch=master)](https://travis-ci.org/pq-crystals/dilithium) [![Coverage Status](https://coveralls.io/repos/github/pq-crystals/dilithium/badge.svg?branch=master)](https://coveralls.io/github/pq-crystals/dilithium?branch=master)
-
-This repository contains the official reference implementation of the [Dilithium](https://www.pq-crystals.org/dilithium/) signature scheme, and an optimized implementation for x86 CPUs supporting the AVX2 instruction set. Dilithium is a [finalist](https://csrc.nist.gov/Projects/post-quantum-cryptography/round-3-submissions) in the [NIST PQC](https://csrc.nist.gov/projects/post-quantum-cryptography) standardization project.
+This repository contains the reference implementation of Paralithium, a variant of the [Dilithium](https://www.pq-crystals.org/dilithium/) signature scheme.
+The motivation behind Paralithium can be found in the [Paralithium specification PDF](spec/paralithium.pdf). 
+Dilithium is a [finalist](https://csrc.nist.gov/Projects/post-quantum-cryptography/round-3-submissions) in the [NIST PQC](https://csrc.nist.gov/projects/post-quantum-cryptography) standardization project.
 
 ## Build instructions
 
