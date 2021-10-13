@@ -35,6 +35,19 @@ int crypto_sign_keypair(uint8_t *pk, uint8_t *sk) {
   return crypto_sign_keypair_params(pk, sk, rho, rhoprime, key);
 }
 
+/*************************************************
+* Name:        crypto_sign_keypair_rho
+*
+* Description: Generates public and private key using a given rho value.
+*
+* Arguments:   - uint8_t *pk:  pointer to output public key (allocated
+*                              array of CRYPTO_PUBLICKEYBYTES bytes)
+*              - uint8_t *sk:  pointer to output private key (allocated
+*                              array of CRYPTO_SECRETKEYBYTES bytes)
+*              - uint8_t *rho: pointer to rho value (length SEEDBYTES)
+*
+* Returns 0 (success)
+**************************************************/
 int crypto_sign_keypair_rho(uint8_t *pk, uint8_t *sk, const uint8_t *rho) {
   uint8_t seedbuf[SEEDBYTES + CRHBYTES];
   const uint8_t *rhoprime, *key;
