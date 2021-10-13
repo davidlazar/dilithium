@@ -21,10 +21,6 @@
 #define CRYPTO_ALGNAME "Dilithium3-AES"
 #define DILITHIUM_NAMESPACETOP pqcrystals_dilithium3aes_ref
 #define DILITHIUM_NAMESPACE(s) pqcrystals_dilithium3aes_ref_##s
-#elif DILITHIUM_MODE == 5
-#define CRYPTO_ALGNAME "Dilithium5-AES"
-#define DILITHIUM_NAMESPACETOP pqcrystals_dilithium5aes_ref
-#define DILITHIUM_NAMESPACE(s) pqcrystals_dilithium5aes_ref_##s
 #endif
 #else
 #if DILITHIUM_MODE == 2
@@ -35,10 +31,6 @@
 #define CRYPTO_ALGNAME "Dilithium3"
 #define DILITHIUM_NAMESPACETOP pqcrystals_dilithium3_ref
 #define DILITHIUM_NAMESPACE(s) pqcrystals_dilithium3_ref_##s
-#elif DILITHIUM_MODE == 5
-#define CRYPTO_ALGNAME "Dilithium5"
-#define DILITHIUM_NAMESPACETOP pqcrystals_dilithium5_ref
-#define DILITHIUM_NAMESPACE(s) pqcrystals_dilithium5_ref_##s
 #endif
 #endif
 
