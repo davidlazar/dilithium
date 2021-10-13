@@ -302,7 +302,7 @@ int crypto_sign_verify(const uint8_t *sig,
   if(polyvecl_chknorm(&z, GAMMA1 - BETA))
     return -1;
 
-  /* Compute CRH(H(rho, t1), msg) */
+  /* Compute SSS(SS(rho, t1), msg) */
   sumhash512(tr, pk, CRYPTO_PUBLICKEYBYTES);
 
   sumhash512_init_salted(&st, salt);
