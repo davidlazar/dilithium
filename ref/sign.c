@@ -333,7 +333,7 @@ int crypto_sign_verify(const uint8_t *sig,
 
   /* Call random oracle and verify challenge */
   sumhash512_init(&st);
-  sumhash512_update(&st, mu, CRHBYTES);
+  sumhash512_update(&st, mu, SUMHASH512_DIGEST_SIZE);
   sumhash512_update(&st, buf, K*POLYW1_PACKEDBYTES);
   sumhash512_final(&st, alpha2);
   for(i = 0; i < SUMHASH512_DIGEST_SIZE; ++i)
