@@ -66,6 +66,8 @@ By default our code implements Dilithium's deterministic signing mode. To change
 ```
 in config.h, or adding `-DDILITHIUM_RANDOMIZED_PROOF` to the compiler flags in the environment variable `CFLAGS`.
 
+Similarly, the macro `DILITHIUM_RANDOMIZED_SALT` controls whether the salt generated during signing is random or deterministic.
+
 ## Shared libraries
 
 All implementations can be compiled into shared libraries by running
