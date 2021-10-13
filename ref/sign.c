@@ -9,6 +9,8 @@
 #include "fips202.h"
 #include "sumhash512.h"
 
+static int crypto_sign_keypair_params(uint8_t *pk, uint8_t *sk, const uint8_t *rho, const uint8_t *rhoprime, const uint8_t *key);
+
 /*************************************************
 * Name:        crypto_sign_keypair
 *
@@ -61,7 +63,7 @@ int crypto_sign_keypair_rho(uint8_t *pk, uint8_t *sk, const uint8_t *rho) {
   return crypto_sign_keypair_params(pk, sk, rho, rhoprime, key);
 }
 
-int crypto_sign_keypair_params(uint8_t *pk, uint8_t *sk, const uint8_t *rho, const uint8_t *rhoprime, const uint8_t *key) {
+static int crypto_sign_keypair_params(uint8_t *pk, uint8_t *sk, const uint8_t *rho, const uint8_t *rhoprime, const uint8_t *key) {
   uint8_t tr[SUMHASH512_DIGEST_SIZE];
   polyvecl mat[K];
   polyvecl s1, s1hat;
